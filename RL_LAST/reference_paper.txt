@@ -1,0 +1,395 @@
+                         RLVR_Yash_First
+                                         by Yash Ingle
+
+
+
+
+Submission date: 24-Apr-2026 03:32PM (UTC+0530)
+Submission ID: 2942315700
+File name: RLVR_Research_paper.pdf (602.06K)
+Word count: 7306
+Character count: 37480
+        13
+
+
+
+
+                                 1
+
+
+
+
+                         1
+
+
+
+
+    1
+
+
+
+
+1
+
+
+                                     1
+
+
+                 1
+        1
+
+
+
+             1
+                     1
+
+
+                             1
+                 1
+
+
+
+
+             1
+
+
+
+
+         1
+
+
+
+
+10
+
+
+
+     1
+    1
+
+
+
+
+        1
+
+
+
+
+1
+1
+
+
+
+
+    19
+
+
+
+
+             11
+
+
+
+
+1
+
+
+
+         1
+        1
+
+
+
+
+            20
+
+
+
+
+    1
+
+
+
+
+9
+1
+     14
+
+
+
+
+18
+    16
+
+
+
+
+         2
+
+
+
+
+1
+
+
+
+
+             17
+                             1
+
+
+
+
+12
+
+
+
+
+                 1
+
+
+
+
+     1
+
+
+         1                       1
+
+
+                         5
+             1
+
+
+
+
+     1
+
+
+
+
+                     3
+    1
+
+
+
+
+            1
+
+
+
+
+        1
+1                   1
+                1
+
+
+
+
+1
+    1
+
+
+
+
+8
+     1
+
+
+             1
+
+
+
+
+         2
+
+
+
+
+15
+                2
+
+
+
+
+            2
+
+
+
+
+        1
+                        3
+                    1
+
+
+
+
+                            1
+
+
+
+1
+
+
+
+
+    4
+        2
+
+
+
+
+                6
+
+
+
+
+    1
+            1
+
+
+
+
+7
+RLVR_Yash_First
+ORIGINALITY REPORT
+
+
+
+
+13          %
+SIMILARITY INDEX
+                           12%
+                           INTERNET SOURCES
+                                              7%
+                                              PUBLICATIONS
+                                                             2%
+                                                             STUDENT PAPERS
+
+
+PRIMARY SOURCES
+
+
+
+
+ 1
+         arxiv.org
+         Internet Source                                                  9%
+ 2
+         Chen, Feng. "Understanding Dynamics in
+         Intelligent Systems: Control and Learning in
+                                                                          1%
+         Neural Circuits and Artificial Neural
+         Networks.", Stanford University
+         Publication
+
+
+
+ 3
+         Qianjun Pan, Wenkai Ji, Yuyang Ding, Junsong
+         Li, Shilian Chen, Junyi Wang, Jie Zhou, Qin
+                                                                       <1%
+         Chen, Min Zhang, Yulan Wu, Liang He. "A
+         survey of slow thinking-based reasoning LLMs
+         using reinforcement learning and test-time
+         scaling law", Information Processing &
+         Management, 2026
+         Publication
+
+
+
+ 4
+         par.nsf.gov
+         Internet Source                                               <1%
+ 5
+         Submitted to Monash University
+         Student Paper                                                 <1%
+ 6
+         deepai.org
+         Internet Source                                               <1%
+ 7
+         export.arxiv.org
+         Internet Source                                               <1%
+ 8
+         Ahrabian, Kian. "Toward Large Language
+         Models as Universal Tools.", University of
+                                                                       <1%
+         Southern California
+         Publication
+9
+     Gao Cong, Kian-Lee Tan, Anthony K. H. Tung,
+     Xin Xu. "Mining top-K covering rule groups for
+                                                         <1%
+     gene expression data", Proceedings of the
+     2005 ACM SIGMOD international conference
+     on Management of data - SIGMOD '05, 2005
+     Publication
+
+
+
+10
+     Li, Shuo. "Towards Trustworthy Large
+     Language Models.", University of
+                                                         <1%
+     Pennsylvania
+     Publication
+
+
+
+11
+     Xiao, Teng. "Learning and Alignment with
+     Human Preferences and Values", The
+                                                         <1%
+     Pennsylvania State University, 2025
+     Publication
+
+
+
+12
+     aclanthology.org
+     Internet Source                                     <1%
+13
+     quolibris.ciando.com
+     Internet Source                                     <1%
+14
+     vixra.org
+     Internet Source                                     <1%
+15
+     www.springerprofessional.de
+     Internet Source                                     <1%
+16
+     "PRICAI 2025: Trends in Artificial Intelligence",
+     Springer Science and Business Media LLC,
+                                                         <1%
+     2026
+     Publication
+
+
+
+17
+     Cundy, Christopher James. "Beyond
+     Maximum Likelihood: Distribution-Aware
+                                                         <1%
+     Machine Learning.", Stanford University, 2024
+     Publication
+
+
+
+18
+     cdn.amazon.science
+     Internet Source                                     <1%
+19
+     d197for5662m48.cloudfront.net
+     Internet Source
+                                                          <1%
+20
+        Qi, Xiangyu. "Robustness for AI Safety",
+        Princeton University, 2025
+                                                          <1%
+        Publication
+
+
+
+
+Exclude quotes         Off        Exclude matches   Off
+Exclude bibliography   On
+

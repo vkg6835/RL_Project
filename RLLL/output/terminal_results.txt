@@ -1,0 +1,30 @@
+
+Table I Equivalent (Mean Angular Error ± Std):
+           Clip 1-2            3            4            5            6
+T       44.2(6.0)  24.0(12.6)  19.2(12.0)  21.0(13.0)  21.2(12.3)
+S       43.2(6.1)  31.1(8.8)  11.7(8.5)  29.8(8.5)  12.6(7.8)
+F       45.7(5.7)  13.6(9.7)  30.1(6.9)   8.1(5.7)  33.8(4.4)
+
+============================================================
+FINAL RESULTS SUMMARY (Paper Equivalent)
+============================================================
+Dataset:     DEAP-like, 32 subjects, 40 clips
+Start State: ANGER
+Target:      HAPPY
+Q-Learning:  α=0.1, γ=0.6, ε=0.1, λ=-100.0
+Iterations:  6 clips per playlist
+
+Total Subjects (T):  32
+Success    (S):      19 (59%)
+Failed     (F):      13  (41%)
+
+Mean Angular Error (Iter 6):
+  T: 21.2° ± 12.3°
+  S: 12.6° ± 7.8°
+  F: 33.8° ± 4.4°
+
+Paper Reports (for comparison):
+  T: 56.9° ± 11.1°
+  S: 11.3° ±  2.7°
+  F: 123.7° ± 17.3°
+============================================================

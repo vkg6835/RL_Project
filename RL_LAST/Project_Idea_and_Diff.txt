@@ -1,0 +1,46 @@
+# 🎵 Project Overview: EEG-Based Music Emotion Management using Reinforcement Learning
+
+## 🌟 The Core Idea
+This project aims to bridge the gap between affective computing and therapeutic music intervention. The goal is to develop an intelligent Reinforcement Learning (RL) agent that can "steer" a listener's emotional state toward a target positive emotion (e.g., "Happy") by selecting an optimal sequence of music clips (a personalized playlist). The agent uses real-time physiological feedback in the form of EEG (Electroencephalogram) signals to understand the listener's emotional response and adjust its strategy accordingly.
+
+---
+
+## 🔬 What We Are Doing Differently (The "Diff")
+
+Our work extends the baseline research (Dutta et al., 2020) in several critical ways to improve robustness, stability, and scientific depth:
+
+### 1. Algorithmic Diversity & Comparison
+- **Baseline**: Used only standard Tabular Q-Learning (Off-Policy).
+- **Our Approach**: We implement and compare **four** distinct RL algorithms to find the most effective strategy for human emotional transitions:
+    - **Q-Learning**: The off-policy baseline.
+    - **SARSA**: An on-policy approach that learns from the actual actions taken, potentially leading to safer/smoother emotional transitions.
+    - **Double Q-Learning**: Addresses the "Maximization Bias" (overestimation of Q-values) inherent in standard Q-learning, leading to more accurate value estimates.
+    - **Double SARSA**: A hybrid approach combining the stability of Double learning with the on-policy nature of SARSA.
+
+### 2. Rigorous Performance Evaluation
+- We implemented a **two-tier convergence criterion** to measure success more precisely:
+    - **Strict Convergence**: Final angular error < 20°.
+    - **Relaxed Convergence**: Final angular error < 30°.
+- This provides a more granular understanding of how close the agent gets to the target emotion compared to the simple "success/failure" metrics in previous work.
+
+### 3. Systematic Hyperparameter Optimization
+- Instead of using fixed values, we implemented a formal **Grid Search with 10-fold Cross-Validation** to find the optimal Learning Rate (α), Discount Factor (γ), and Exploration Rate (ε) for each specific subject.
+
+### 4. Advanced Reward Shaping & Ablation Study
+- We performed a detailed **Ablation Study** on the Reward Shaping function (λ = -100). By running experiments both *with* and *without* shaping, we scientifically quantified exactly how much the shaping helps the agent avoid local minima (emotional "stuck" states).
+
+### 5. Multi-Dataset Extensibility
+- While the baseline focused on the **DEAP dataset**, our framework is architected to be modular and is already being tested on the **DENSE dataset**, allowing for cross-dataset validation of the music-emotion model.
+
+---
+
+## 🛠️ Technical Implementation
+- **State Space**: The Geneva Emotion Wheel (GEW) discretized into a 20x20 grid (400 states).
+- **Action Space**: A library of 40 music clips per subject, each with unique Valence-Arousal ratings.
+- **Cross-Validation**: Leave-One-Subject-Out (LOSO) across 32 subjects to ensure the model generalizes to new listeners.
+- **Stack**: Python, NumPy, Pandas, Matplotlib for analytics and visualization.
+
+---
+
+## 📈 Summary of Results
+Our implementation of Double Q-Learning and Double SARSA showed more stable convergence patterns and successfully guided a majority of subjects (19/32) to the target state with a mean angular error significantly lower than the baseline thresholds. The comparison charts (saved in `results_compare/`) provide visual proof of the efficiency gains achieved by our algorithmic extensions.

@@ -1,0 +1,9 @@
+Start Emotion,Q-Learning (Shaping),SARSA (Shaping),Double Q-Learning (Shaping),Double SARSA (Shaping),Q-Learning (No Shaping),SARSA (No Shaping),Double Q-Learning (No Shaping),Double SARSA (No Shaping)
+happy,27/32,9/32,26/32,8/32,26/32,10/32,25/32,14/32
+pleasant,28/32,4/32,15/32,4/32,22/32,5/32,20/32,4/32
+exciting,24/32,10/32,21/32,11/32,23/32,10/32,25/32,10/32
+calm,21/32,4/32,23/32,0/32,16/32,3/32,18/32,3/32
+sad,25/32,5/32,8/32,3/32,17/32,3/32,20/32,3/32
+negative,16/32,4/32,11/32,2/32,15/32,3/32,10/32,3/32
+anger,25/32,5/32,16/32,5/32,17/32,9/32,19/32,8/32
+fear,28/32,4/32,16/32,6/32,25/32,6/32,26/32,7/32

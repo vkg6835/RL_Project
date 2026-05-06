@@ -1,0 +1,433 @@
+Reinforcement Learning using EEG signals for Therapeutic Use of
+Music in Emotion Management
+Esha Dutta*, Ananya Bothra*, Theodora Chaspari, Thomas Ioerger, Bobak J. Mortazavi
+Abstract— Prolonged influence of negative emotions can
+result in clinical depression or anxiety, and while many
+prescribed techniques exist, music therapy approaches,
+coupled with psychotherapy, have shown to help lower
+depressive symptoms, supplementing traditional treatment
+approaches. Identifying the appropriate choice of music,
+therefore, is of utmost importance. Selecting appropriate
+playlists, however, are challenged by user feedback that
+may inadvertently select songs that amplify the negative
+effects. Therefore, this work uses electroencephalogram (EEG)
+that automatically identifies the emotional impact of music
+and trains a reinforcement-learning approach to identify an
+adaptive personalized playlist of music to lead to improved
+emotional states. This work uses data from 32 users, collected
+in the publicly available DEAP dataset, to select songs for
+users that guide them towards joyful emotional states. Using a
+domain-specific reward-shaping function, a Q-learning agent
+is able to correctly guide a majority of users to the target
+emotional states, represented in a common emotion wheel.
+The average angular error of all users is 57◦ , with a standard
+deviation of 2.8 and the target emotional state is achieved.
+Clinical relevance— Music therapy for improving clinical
+depression and anxiety can be supplemented by additional
+emotion-guided music decisions in remote and personal settings
+by using automated techniques to capture emotional state and
+identify music that best guides users to target joyful states.
+
+I. INTRODUCTION
+Disruptive emotional homeostasis is associated with fragile mental health [1]. Prolonged influence of negative emotions eventually alters the neurological circuitry of the brain
+and gives rise to ailments such as clinical depression or
+anxiety [2]; however, prescribed medications for these disorders may have various side-effects [3]. Music, as a medium
+of emotion regulation, may supplement traditional treatment
+methods and have positive impacts on anxiety levels, heart
+rates, and blood pressure[4][5]. Music therapy, coupled with
+psychotherapy, can lead to statistically significant lower
+depressive symptoms [6].
+The choice of appropriate music is important to ensure
+positive outcomes from music-based intervention [7]. Music
+selection is important, especially in individuals vulnerable for
+depressive symptoms, and these individuals may not be able
+to select appropriate music for healthy emotional transitions
+[8]. Indeed, individuals with feelings of despondency can
+misuse music as unhealthy coping mechanisms like emotion
+focused coping [9], rumination [10], or social withdrawal
+*ED and AB contributed equally to this work. ED, AB, TC, TI, and BM
+are with the Department of Computer Science & Engineering, Texas A&M
+University, College Station, Texas, 77807 {esha, ananya1994,
+
+chaspari, ioerger, bobakm}@tamu.edu
+978-1-7281-1990-8/20/$31.00 ©2020 IEEE
+
+[11]; depressed listeners are naturally drawn to sad music
+despite its potentially-negative impact on their cognitive state
+[10]. Therefore, a solution to predict or derive the optimized
+sequence of music, which can drive the current emotional
+state of a subject to the desired cognitive state is desired.
+Reinforcement learning-based approaches to generate personalised playlists have aimed to address this goal of optimal
+sequence of music. However, these approaches traditionally
+incorporate user feedback (pauses, replays, and skips of
+songs) [12]. The publicly available DEAP dataset recorded
+electroencephalogram (EEG) and peripheral physiological
+signals of 32 participants while each of them was watching
+40 one-minute long excerpts of music clips [13], which
+provides a wearable sensors-based approach to automatically
+identifying user preference for a reinforcement learning
+agent. Indeed, classifying emotional signals with the help of
+EEG data has been a focus of recent [14]. However, blindly
+adapting such data to Q-learning agents requires specialized
+reward functions or reward-shaping techniques to help guide
+learning agents to avoid local minimum solutions that would
+impact performance. Such reward-shaping is necessary because the policy space is too large to explore exhaustively
+[15] and reinforcement learning often needs domain-specific
+reward shaping to optimize performance [16]. This work
+aims to use music and emotion data made available from
+DEAP, extracted from EEG signals rather than using the
+data from direct user feedback, to train a Q-learning agent
+to automate the personalized selection of music sequences
+using a specialized reward-shaping function.
+II. DATA SET D ESCRIPTION
+We used the DEAP dataset [13] for our implementation,
+which recorded electroencephalogram (EEG) and peripheral
+physiological signals of 32 participants. while each watched
+40 one-minute long excerpts of music clips. For each clip,
+a fixation screen was displayed and a 2-minute long EEG
+signal was recorded to calibrate each user to a relaxed state
+prior to viewing a music clip. The EEG data can be processed
+using algorithms such as support vector machines (SVM),
+long short-term memory networks (LSTM), k nearest neighbor (KNN), etc.[14] to obtain individual valence, arousal,
+dominance and preference values; the DEAP dataset contains
+processed valence and arousal, which is used in this work.
+III. M ETHOD
+A. Music recommendation using Reinforcement Learning
+We employed a Q-learning model for developing the music
+recommendation system. The reward considered was based
+
+5553
+
+Authorized licensed use limited to: SARDAR VALLABHBHAI NATIONAL INSTITUTE OF TECH. Downloaded on March 22,2026 at 16:27:20 UTC from IEEE Xplore. Restrictions apply.
+
+Fig. 1: Our proposed music recommendation system trained with Q-learning reinforcement learning.
+
+on the emotions as mapped in the 2D Geneva Emotion Wheel
+(GEW), where positive emotions are in the upper right quadrant, negative/depressive emotions in the lower left quadrant,
+anger in the upper left quadrant, and hopefulness in the lower
+right quadrant [17]. The GEW defines a 2D circular space
+with horizontal axis representing valence (positive or negative influence of an emotion) and vertical axis representing
+arousal (the degree of excitement or calmness associated with
+the current cognitive state). An action represents presentation
+of a selected music to a given subject to influence his/her
+emotions and the entire model is illustrated in Fig. 1.
+To model the emotion transition, we begin with training
+the Q-learning agent which is represented in the form of
+a Q-table. The adaptation rule used to iteratively update
+the Q table for a current emotional state s, action a and
+next emotional state s’ is given in the standard Q-learning
+equation:
+Q(s, a) = (1−α)Q(s, a)+α[r(s, a)+γ max
+Q(s0 , a0 )+φ(s, s0 )]
+0
+∀a
+
+0
+
+where s = δ(s, a) is the next state due to action a at state
+s, r(s, a) is the reward obtained by agent for taking action
+a at state s, φ(s, s0 ) is the transition function due to reward
+shaping and α, γ are scale factors in [0, 1].
+During the control phase, we determine the current emotion of the subject by his/her EEG data. Next, the learning
+agent refers back to the trained Q-table and selects the best
+possible music clip to drive the subject towards targeted
+mental state.
+B. Intermediate State Representation
+To determine the impact of the music clip on the current
+cognitive state of the individual, we use the GEW and
+a (valence, arousal) tuple for each clip and each subject.
+Thus, the impact of each music clip on a subject can also
+
+be envisioned as a vector on the 2-D plane as described
+above, and transitions as angular rotations between these
+coordinates. The intermediate mental state of a subject post
+listening to a music clip can thus be determined by the
+transition function denoted by τ (s, a) such that
+−
+−
+τ (s, a) = →
+vs + →
+va , −
+v→
+s0 = τ (s, a)
+where −
+v→
+s0 is the potential intermediate next state emotion
+−
+vector, s is the current emotional state represented as →
+vs
+in GEW, and a represents the subjected music inducing
+−
+emotion denoted by →
+va . This transition function is motivated
+by the idea that the mental state of an individual subjected
+to an external stimulus would depend on the nature of the
+stimulus and the initial emotional state of the individual.
+Iterative adaptation of the transition function helps us define
+the next state table which captures the potential emotional
+states corresponding to the responses to music stimuli from
+a given cognitive state.
+C. Reward Function
+In this model, the basic reward function provided an agent
+an immediate reward of +1 if the presented action drove the
+cognition closer to the target emotional state and 0 otherwise.
+The reward at state s (current emotional state) for an action
+a (music clip) is denoted as:
+(
+1, if θ(s, a) ≤ 180◦
+r(s, a) =
+0, otherwise
+where, θ(s, a) = |θ1 | + |θ2 | and
+
+→
+−
+−
+v∗ · →
+va
+θ∗ = arccos →
+−
+|−
+v∗ ||→
+va |
+→
+−
+→
+−
+where θ uses v and θ uses v , with −π < θ , θ
+
+1
+t
+2
+s
+1 2 ≤
+π. The motivation for the aforesaid reward function is to
+
+5554
+Authorized licensed use limited to: SARDAR VALLABHBHAI NATIONAL INSTITUTE OF TECH. Downloaded on March 22,2026 at 16:27:20 UTC from IEEE Xplore. Restrictions apply.
+
+TABLE I: Mean angular error (and standard deviation) for
+Total (T) 32 subjects, the 19 subjects that achieve target
+emotional state success (S), and remaining 13 subjects (F)
+over six music clips (iterations)
+T
+S
+F
+
+Clip 1-2
+68.3(14.1)
+54.7(3.6)
+88.2(17.9)
+
+3
+67.4(10.9)
+39.1(3.2)
+108.0(16.8)
+
+4
+62.9(9.9)
+38.3(3.1)
+99.1(15.3)
+
+5
+60.1(11.5)
+23.1(2.4)
+114.1(18.1)
+
+6
+56.9(11.1)
+11.3 (2.7)
+123.7 (17.3)
+
+Fig. 2: Angular Error (degrees) and reward shaping.
+
+encourage the agent to select music stimuli in such a way
+that the subject is driven towards the target emotional state.
+D. Reward shaping
+Building a robust emotion control model requires an
+exhaustive music library and user reaction to this library in
+order, which can invoke all possible emotion transitions. Due
+to this limitation of building the action space (and the data
+available in DEAP all stemming from a neutral state), the
+Q-learning agent often greedily selected the locally optimal,
+which was not the targeted emotion. For example, the Qlearning agent suggested a music clip that put a subject in
+a state of shame, and no music clips in the database exist
+that brought the user out of this state. This was mitigated
+by introducing prior domain knowledge to train the agent so
+that it was guided towards the globally optimal solution by
+shaping the reward function.
+We introduce an additional reward for a successful state
+transition. That is, not only was the agent rewarded for
+making a transition towards a more positive emotion but
+also was rewarded for making any transition from one state
+to another, irrespective of it being positive/negative. This
+ensures that the agent never gets stuck to any cognitive state,
+other than the target positive emotional state. The shaping
+function for transitioning from current state (say, s) to the
+next state (say, s0 ) is defined as:
+(
+λ, if both s and s’ are same
+φ(s, s’) =
+0, otherwise
+As we wanted to discourage the agent from remaining in the
+same emotional state, λ assumed a large negative value for
+practical implementations, -100 (a tenth of regret value).
+IV. EXPERIMENT AND RESULTS
+Using the extracted emotion data from the EEG readings in
+the DEAP dataset, this work conducted a leave-one-subjectout cross-validation to train a Q-learning agent and evaluate
+the ability of the agent to provide a playlist that would result
+in the targeted emotional state (happy, pride, anger, disgust,
+guilt, sadness, interest, and relief ). We reduced this from
+the 16 emotions on the wheel by splitting every missing
+
+Fig. 3: Mean angular error & standard error
+
+emotion into two, merging into neighboring emotions, partially due to label imbalance on the removed emotions. These
+experiments, along with the necessary hyperparameter tuning
+and corresponding results, are explained in the subsequent
+sections.
+A. Hyper-parameter Tuning
+The Q-Learning model had three hyper-parameters that
+needed to be tuned: learning rate (α), discount factor (γ),
+and exploration/exploitation ratio (). These hyper-parameter
+were tuned using grid search method with an internal 10-fold
+cross-validation on the training data, resulting in optimal
+vales of α as 0.1 and γ as 0.6. The model was also
+evaluated for the value of  as 0 and 0.1. It was observed
+that in both cases, the regret (integral of angular error)
+increased linearly for increasing iterations initially. However,
+as iterations progressed, the regret tended to saturate with  as
+0.1 but was unbounded in the other scenario. This suggested
+that the agent learnt the problem better while adopting an
+-greedy learning approach.
+B. Model Evaluation
+Initially, when the Q-table was trained without incorporating reward shaping, the Q learning agent was unable to
+suggest a sequence of music clips to drive the target state
+to happy. This is evident from Fig. 2 where the increasing
+and subsequent saturation of angular error (without reward
+shaping) indicated that the model failed to converge to the
+target emotion.
+Alternatively, Fig. 2 demonstrates that the Q learning agent
+was able to suggest sequences when the Q-table was trained
+with reward shaping. Of the 32 subjects, 19 cases converged
+to the target happy state. Fig. 3 lists the average (mean)
+angular error (with standard deviations) over all participants,
+and Table I breaks further into those that achieved the target
+
+5555
+Authorized licensed use limited to: SARDAR VALLABHBHAI NATIONAL INSTITUTE OF TECH. Downloaded on March 22,2026 at 16:27:20 UTC from IEEE Xplore. Restrictions apply.
+
+VI. CONCLUSIONS
+
+Fig. 4: Angular error and emotional state for two subjects:
+9 who converged to the target state and 28 who did not
+
+emotional state and those that did not, over six iterations.
+Importantly, for those 19 users a total of 9 clips are selected,
+demonstrating that while the first clips may be standard,
+unique playlists were selected based upon each subject’s
+EEG data captured during the music clips as the iterations
+increased. The Q learning agent was able to create a playlist
+that consistently led users towards the happy target state, and
+the more music clips allowed the more users converged. The
+angular error in the sixth iteration converged to less than 60◦ .
+The number of iterations was obtained by empirical analysis
+and increasing the iterations further did not substantially
+improve the results.
+This is likely a function of two findings: 1) that the number
+of similar joyous targets, and an imbalance in the selection
+of joyous states in the DEAP dataset, allow most users to
+get close to our designated target of happy; and 2) the larger
+error bars illustrate that for 19 subjects the angular error
+approaches 0 as each individual reaches the key target state,
+and those that do not converge have a wider array of possible
+angular error values. Two such cases (one convergent, one
+divergent) are illustrated in Fig. 4. The average angular error
+in the sixth iteration for the 19 participants is 11.3◦ , with a
+standard deviation of 2.8 , while the average angular error
+in the sixth iteration for the remaining 13 participants is
+123.7◦ , with a standard deviation of 17.3. EEG data is able
+to find the target state for 19 users and the Q learning agent
+is able to do so with a minimal number of iterations. Further
+exploration is needed to determine why subject 28 in Fig. 4,
+and similar such subjects, oscillate between emotional states
+but do not converge on the target, perhaps because of the
+reward shaping mechanism employed to aid most subjects.
+V. LIMITATION AND FUTURE WORKS
+We create personalized playlists to help subjects arrive
+at target emotional states. We can explore additional rewards based upon additional input data including further
+processing of EEG data and acquiring user feedback, which
+may demonstrate variations along the emotion wheel. We
+will develop a sequence of music to fine-tune the emotional
+experiences and demonstrate effectiveness across emotional
+states. Ultimately, randomized control trials are needed to
+validate the effectiveness in improving emotional states.
+
+This work developed a reinforcement learning approach
+for developing music playlists targeted at emotion regulation
+based upon wearable EEG data. Using just six music clips
+in a playlist, 19 of the 32 subjects in the publicly available
+DEAP dataset arrived at a joyful target emotional state, with
+a mean angular error of 11.3◦ (standard deviation: 2.8◦ ), with
+the overall mean angular error of 57.0◦ , when calculated
+in a leave-one-subject-out cross-validation. Importantly, this
+work demonstrated an angular error-based reward shaping
+function that a Q-learning agent used to select songs to
+arrive at a target emotion, even if each individual clip would
+not. This work presented a framework of taking processed,
+wearable EEG data to derive personalized, emotion-driven
+music playlists, which enables future studies on emotional
+health applications and interventions.
+R EFERENCES
+[1] E. X. Freed, “Alcoholism and manic-depressive disorders: Some
+perspectives.” Quarterly Journal of Studies on Alcohol, 1970.
+[2] E. J. Nestler, M. Barrot, R. J. DiLeone, A. J. Eisch, S. J. Gold, and
+L. M. Monteggia, “Neurobiology of depression,” Neuron, vol. 34,
+no. 1, pp. 13–25, 2002.
+[3] B. Blackwell, “Adverse effects of antidepressant drugs,” Drugs,
+vol. 21, no. 3, pp. 201–219, 1981.
+[4] S. L. Siedliecki and M. Good, “Effect of music on power, pain,
+depression and disability,” Journal of advanced nursing, vol. 54, no. 5,
+pp. 553–562, 2006.
+[5] J. Bradt, C. Dileo, and M. Shim, “Music interventions for preoperative
+anxiety,” Cochrane Database of Systematic Reviews, no. 6, 2013.
+[6] S. Castillo-Pérez, V. Gómez-Pérez, M. C. Velasco, E. Pérez-Campos,
+and M.-A. Mayoral, “Effects of music therapy on depression compared
+with psychotherapy,” The Arts in Psychotherapy, vol. 37, no. 5, pp.
+387–390, 2010.
+[7] S. Garrido, C. J. Stevens, E. Chang, L. Dunne, and J. Perz, “Music and
+dementia: individual differences in response to personalized playlists,”
+Journal of Alzheimer’s Disease, vol. 64, no. 3, pp. 933–941, 2018.
+[8] S. Garrido and E. Schubert, “Moody melodies: Do they cheer us up?
+a study of the effect of sad music on mood,” Psychology of Music,
+vol. 43, no. 2, pp. 244–261, 2015.
+[9] D. Miranda, P. Gaudreau, R. Debrosse, J. Morizot, and L. J. Kirmayer,
+“Music listening and mental health: Variations on internalizing psychopathology,” Music, health, and wellbeing, pp. 513–529, 2012.
+[10] S. Garrido and E. Schubert, “Adaptive and maladaptive attraction to
+negative emotions in music,” Musicae Scientiae, vol. 17, no. 2, pp.
+147–166, 2013.
+[11] K. S. McFerran and S. Saarikallio, “Depending on music to feel better:
+Being conscious of responsibility when appropriating the power of
+music,” The Arts in Psychotherapy, vol. 41, no. 1, pp. 89–97, 2014.
+[12] C.-Y. Chi, R. T.-H. Tsai, J.-Y. Lai, and J. Y.-j. Hsu, “A reinforcement
+learning approach to emotion-based automatic playlist generation,” in
+2010 International Conference on Technologies and Applications of
+Artificial Intelligence. IEEE, 2010, pp. 60–65.
+[13] S. Koelstra, C. Muhl, M. Soleymani, J.-S. Lee, A. Yazdani,
+T. Ebrahimi, T. Pun, A. Nijholt, and I. Patras, “Deap: A database
+for emotion analysis; using physiological signals,” IEEE transactions
+on affective computing, vol. 3, no. 1, pp. 18–31, 2011.
+[14] H. Chao, L. Dong, Y. Liu, and B. Lu, “Emotion recognition from
+multiband eeg signals using capsnet,” Sensors, vol. 19, no. 9, p. 2212,
+2019.
+[15] A. D. Laud, “Theory and application of reward shaping in reinforcement learning,” Tech. Rep., 2004.
+[16] M. Grzes and D. Kudenko, “Plan-based reward shaping for reinforcement learning,” in 2008 4th International IEEE Conference Intelligent
+Systems, vol. 2. IEEE, 2008, pp. 10–22.
+[17] T. Bänziger, V. Tran, and K. Scherer, “The emotion wheel. a tool for
+the verbal report of emotional reactions,” in poster presented at the
+conference of the International Society of Research on Emotion, Bari,
+Italy, 2005.
+
+5556
+Authorized licensed use limited to: SARDAR VALLABHBHAI NATIONAL INSTITUTE OF TECH. Downloaded on March 22,2026 at 16:27:20 UTC from IEEE Xplore. Restrictions apply.
+
+
